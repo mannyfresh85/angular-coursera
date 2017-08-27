@@ -14,6 +14,8 @@ function LunchCheckController($scope) {
     if ( $scope.list == ""){
       //default message if no items were entered
       $scope.message = "Please enter data first";
+      $scope.msgClass = "error";
+      $scope.msgFieldClass = "fieldError";
     } else {
       $scope.listArray = $scope.list.split(',');
       console.log($scope.listArray.length);
@@ -21,8 +23,12 @@ function LunchCheckController($scope) {
 
       if ( $scope.listArray.length <= 3) {
           $scope.message = "Enjoy!";
+          $scope.msgClass = "success";
+          $scope.msgFieldClass = "fieldSuccess";
       } else {
           $scope.message = "Too much!";
+          $scope.msgClass = "success";
+          $scope.msgFieldClass = "fieldSuccess";
       }
     }
 
