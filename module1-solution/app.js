@@ -6,6 +6,19 @@ angular.module('LunchCheck', [])
 
 LunchCheckController.$inject = ['$scope'];
 
+
+Array.prototype.clean = function(deleteValue) {
+  for (var i = 0; i < this.length; i++) {
+    if (this[i] == deleteValue) {
+      this.splice(i, 1);
+      i--;
+    }
+  }
+  return this;
+};
+
+
+
 function LunchCheckController($scope) {
   //default value of list
   $scope.list = "";
@@ -18,9 +31,7 @@ function LunchCheckController($scope) {
       $scope.msgFieldClass = "fieldError";
     } else {
       $scope.listArray = $scope.list.split(',');
-      console.log($scope.listArray.length);
-      console.log($scope.listArray);
-
+      $scope.listArray = $scope.listArray.clean("");
       if ( $scope.listArray.length <= 3) {
           $scope.message = "Enjoy!";
           $scope.msgClass = "success";
@@ -31,9 +42,6 @@ function LunchCheckController($scope) {
           $scope.msgFieldClass = "fieldSuccess";
       }
     }
-
   }
-
 }
-
 })();
