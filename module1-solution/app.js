@@ -6,7 +6,8 @@ angular.module('LunchCheck', [])
 
 LunchCheckController.$inject = ['$scope'];
 
-
+//add a method to the Array prototype that will remove all instances of
+//deleteValue from the given Array
 Array.prototype.clean = function(deleteValue) {
   for (var i = 0; i < this.length; i++) {
     if (this[i] == deleteValue) {
@@ -17,31 +18,32 @@ Array.prototype.clean = function(deleteValue) {
   return this;
 };
 
-
-
 function LunchCheckController($scope) {
   //default value of list
   $scope.list = "";
 
   $scope.checkLunchMenu = function () {
-    if ( $scope.list == ""){
-      //default message if no items were entered
-      $scope.message = "Please enter data first";
-      $scope.msgClass = "error";
-      $scope.msgFieldClass = "fieldError";
+    var listArray = createCleanArray($scope.list);
+    if ( listArray.length == 0 ){
+      //default message and classes if no items were entered
+      assignMsgandClasses("Please enter data first", "error", "fieldError");
+    } else if ( listArray.length <= 3 ) {
+      assignMsgandClasses("Enjoy!", "success", "fieldSuccess");
     } else {
-      $scope.listArray = $scope.list.split(',');
-      $scope.listArray = $scope.listArray.clean("");
-      if ( $scope.listArray.length <= 3) {
-          $scope.message = "Enjoy!";
-          $scope.msgClass = "success";
-          $scope.msgFieldClass = "fieldSuccess";
-      } else {
-          $scope.message = "Too much!";
-          $scope.msgClass = "success";
-          $scope.msgFieldClass = "fieldSuccess";
+      assignMsgandClasses("Too much!", "success", "fieldSuccess");
       }
-    }
+  } // eof checkLunchMenu
+
+  function assignMsgandClasses(msg, msgClass, fieldClass){
+    $scope.message = msg;
+    $scope.msgClass = msgClass;
+    $scope.msgFieldClass = fieldClass;
+  }
+
+  function createCleanArray(array){
+    array = array.split(',');
+    array = array.clean("");
+    return array;
   }
 }
 })();
