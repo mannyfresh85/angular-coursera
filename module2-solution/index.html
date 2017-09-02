@@ -37,7 +37,7 @@
        <li ng-repeat="item in buy.items">
          Buy {{item.quantity}} {{item.name}}
          <button ng-click="buy.purchaseItem($index, item.name, item.quantity);" class="btn btn-default">
-           <span class="glyphicon glyphicon-ok"></span>Bought</button>
+           <span class="glyphicon glyphicon-ok"></span> Bought</button>
        </li>
        <!-- <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
        <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li> -->
@@ -51,7 +51,7 @@
      <ul>
        <li ng-repeat="item in bought.items">Bought {{item.quantity}} {{item.name}}
          <button ng-click="bought.returnItem($index, item.name, item.quantity);" class="btn btn-default">
-           <span class="glyphicon glyphicon-ok"></span>Return</button>
+           <span class="glyphicon glyphicon-ok"></span> Return</button>
        </li>
      </ul>
      <div ng-if="!bought.items.length" class="emptyMessage">Nothing bought yet.</div>
