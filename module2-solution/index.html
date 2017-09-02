@@ -36,7 +36,7 @@
      <ul>
        <li ng-repeat="item in buy.items">
          Buy {{item.quantity}} {{item.name}}
-         <button ng-click="buy.purchaseItem($index, item.name, item.quantity);" class="btn btn-default">
+         <button ng-click="buy.purchaseItem($index);" class="btn btn-default">
            <span class="glyphicon glyphicon-ok"></span> Bought</button>
        </li>
        <!-- <li>Buy 10 cookies <button class="btn btn-default"><span class="glyphicon glyphicon-ok"></span> Bought</button></li>
@@ -50,7 +50,7 @@
      <h2>Already Bought:</h2>
      <ul>
        <li ng-repeat="item in bought.items">Bought {{item.quantity}} {{item.name}}
-         <button ng-click="bought.returnItem($index, item.name, item.quantity);" class="btn btn-default">
+         <button ng-click="bought.returnItem($index);" class="btn btn-default">
            <span class="glyphicon glyphicon-ok"></span> Return</button>
        </li>
      </ul>

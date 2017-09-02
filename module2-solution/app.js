@@ -13,8 +13,8 @@ function ToBuyController(ShoppingListCheckOffService) {
 
   buy.items = ShoppingListCheckOffService.getItemsToBuy();
 
-  buy.purchaseItem = function (itemIndex, itemName, itemQuantity) {
-    ShoppingListCheckOffService.purchaseItem(itemIndex, itemName, itemQuantity);
+  buy.purchaseItem = function (itemIndex) {
+    ShoppingListCheckOffService.purchaseItem(itemIndex);
   }
 }; //eo ToBuyController
 
@@ -26,8 +26,8 @@ function AlreadyBoughtController(ShoppingListCheckOffService) {
 
   bought.items = ShoppingListCheckOffService.getItemsPurchased();
 
-  bought.returnItem = function (itemIndex, itemName, itemQuantity) {
-    ShoppingListCheckOffService.returnItem(itemIndex, itemName, itemQuantity);
+  bought.returnItem = function (itemIndex) {
+    ShoppingListCheckOffService.returnItem(itemIndex);
   }
 }; //eo AlreadyBoughtController
 
@@ -61,27 +61,15 @@ function ShoppingListCheckOffService() {
   //bought items is defaulted to empty array
   var boughtItems = [];
 
-  service.purchaseItem = function ( itemIndex, itemName, itemQuantity ) {
-      //get item info and add to the purchased array
-      var purchasedItem = {
-        name: itemName,
-        quantity : itemQuantity
-      }
-      boughtItems.push(purchasedItem);
-
+  service.purchaseItem = function ( itemIndex ) {
+      boughtItems.push(toBuy[itemIndex]);
       //removes item passed from toBuy array to boughtItems array
       toBuy.splice(itemIndex, 1);
   };
 
 
-  service.returnItem = function ( itemIndex, itemName, itemQuantity ) {
-    //removes item passed from boughtItems array to toBuy array
-    var returnedItem = {
-      name: itemName,
-      quantity : itemQuantity
-    }
-    toBuy.push(returnedItem);
-
+  service.returnItem = function ( itemIndex ) {
+    toBuy.push(boughtItems[itemIndex]);
     //removes item passed from toBuy array to boughtItems array
     boughtItems.splice(itemIndex, 1);
   };
