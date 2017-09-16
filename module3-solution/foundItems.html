@@ -1,0 +1,7 @@
+<ul class="list-group" style='width: 100%;'>
+  <li ng-repeat="item in list.items" class="list-group-item">
+    <span>{{item.short_name}}. {{ item.name }} - {{item.description}}</span>
+    <button ng-click="list.onRemove({index: $index});" style="float: right;">Don't want this one!</button>
+  </li>
+</ul>
+<div class="error" ng-if="list.emptyList()">Nothing Found</div>

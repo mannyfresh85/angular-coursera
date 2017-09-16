@@ -4,7 +4,35 @@
 angular.module('NarrowItDownApp', [])
 .controller('NarrowItDownController', NarrowItDownController )
 .service('MenuSearchService', MenuSearchService)
-.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com");
+.constant('ApiBasePath', "https://davids-restaurant.herokuapp.com")
+.directive('foundItems', foundItemsDirective);
+
+
+function foundItemsDirective() {
+  var ddo = {
+    templateUrl: 'foundItems.html',
+    scope: {
+      items:'<',
+      onRemove: '&'
+    },
+    controller: foundItemsDirectiveController,
+    controllerAs: 'list',
+    bindToController: true
+  };
+
+  return ddo;
+}
+
+function foundItemsDirectiveController(){
+  var list = this;
+    list.emptyList = function(){
+      if ( list.items.length === 0 ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
 
 
 NarrowItDownController.$inject = ['MenuSearchService'];
@@ -12,9 +40,22 @@ function NarrowItDownController( MenuSearchService ) {
   var narrow = this;
 
   narrow.findMatches = function () {
-    narrow.found = MenuSearchService.getMatchedMenuItems(narrow.searchTerm);
-    console.log ("Found Items Controller " + narrow.found);
+    //check if input field is empty
+    if(narrow.searchTerm == undefined || narrow.searchTerm.length === 0 ){
+      //empty input field was submitted
+      narrow.found = [];
+    } else {
+      MenuSearchService.getMatchedMenuItems(narrow.searchTerm).then(function (result) {
+        //console.log("Result " + result );
+        narrow.found = result;
+      });
+    }
+    //console.log ("Found Items Controller " + narrow.found);
   }
+
+  narrow.removeItem=function(index){
+            narrow.found.splice(index,1);
+        };
 
 
 }; //end of NarrowItDownController
@@ -26,7 +67,7 @@ function MenuSearchService( $http, ApiBasePath ) {
 
   service.getMatchedMenuItems = function(searchTerm) {
     //searchTerm = 'garlic';
-    console.log('Search term ' + searchTerm);
+    //console.log('Search term ' + searchTerm);
     return $http({
       method: "GET",
       url: (ApiBasePath + "/menu_items.json")
@@ -35,14 +76,16 @@ function MenuSearchService( $http, ApiBasePath ) {
       var foundItems = [];
       //iterate through the menu_items
       angular.forEach(result.data['menu_items'], function(item, index) {
+        //lowercase to catch for capitalization
+        var description = item.description.toLowerCase();
+        searchTerm = searchTerm.toLowerCase();
         //check description for searchTerm
-        var description = item.description;
         if ( description.includes(searchTerm)){
           foundItems.push(item);
-          console.log('Found term ' + item.description)
+          //console.log('Found term ' + item.description)
         }
       });
-
+    //  console.log('Found Items ' + foundItems)
     // return processed items
       return foundItems;
     });
