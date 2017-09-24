@@ -10,7 +10,7 @@ MenuItemsController.$inject=['items'];
 function MenuItemsController(items) {
   var menuItems = this;
 
-  console.log("items: " + items)
+  //console.log("items: " + items)
   menuItems.items = items;
 
 }

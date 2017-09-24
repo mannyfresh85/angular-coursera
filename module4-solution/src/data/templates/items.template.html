@@ -1,5 +1,14 @@
-<ul>
-  <li ng-repeat="item in $ctrl.items">
-    {{item.short_name}}.{{ item.name }}
-  </li>
-</ul>
+<table class="pure-table pure-table-bordered">
+  <thead>
+    <tr>
+      <th>Short Name</th>
+      <th>Item Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="item in $ctrl.items">
+      <td>{{item.short_name}}</td>
+      <td>{{ item.name }}</td>
+    </tr>
+  </tbody>
+</table>

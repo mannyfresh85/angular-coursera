@@ -22,7 +22,7 @@ function MenuDataService($http, ApiBasePath) {
   }
 
   service.getItemsForCategory = function (categoryShortName) {
-    console.log("Short Name: " + categoryShortName);
+    //console.log("Short Name: " + categoryShortName);
     return $http({
       method: "GET",
       url: (ApiBasePath + "/menu_items.json"),
@@ -30,7 +30,7 @@ function MenuDataService($http, ApiBasePath) {
         category: categoryShortName
       }
     }).then(function (response) {
-      console.log("Promise Response: " + JSON.stringify(response.data.menu_items))
+      //console.log("Promise Response: " + JSON.stringify(response.data.menu_items))
       return response.data.menu_items
     })
   }
