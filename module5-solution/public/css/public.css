@@ -228,3 +228,7 @@ h3.menu-item-title {
 .formMessage {
   color: white;
 }
+
+.regForm button {
+  color: black;
+}
