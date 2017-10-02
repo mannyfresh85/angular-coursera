@@ -1,0 +1,74 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-5">
+        <h1>Newsletter Signup</h1>
+    </div>
+  </div>
+  <div class="row regForm">
+    <div class="col-sm-8">
+      <fieldset>
+        <!-- <legend>Registration</legend> -->
+        <form name='regForm' novalidate>
+          <div class="row">
+            <input type="text" name="firstname" class="col-sm-8" placeholder="First Name"
+              ng-model="signUpCtrl.user.firstname"
+              required>
+              {{signUpCtrl.test}}
+              <span
+                ng-if="(regForm.username.$error.required) && regForm.firstname.$touched">
+                First Name is required
+              </span>
+              <br>
+          </div>
+          <div class="row">
+            <input type="text" name="lastname" class="col-sm-8" placeholder="Last Name"
+              ng-model="signUpCtrl.user.lastname"
+              required>
+              <span
+                ng-if="(regForm.lastname.$error.required) && regForm.lastname.$touched">
+                Last Name is required
+              </span>
+              <br>
+          </div>
+          <div class="row">
+            <input type="email" name="email" class="col-sm-8" placeholder="Email"
+              ng-model="signUpCtrl.user.email"
+              required>
+              <span ng-if="regForm.email.$invalid && regForm.email.$touched">
+                Must be a valid email address: handle@domain format
+              </span>
+              <br>
+          </div>
+          <div class="row">
+            <input type="text" name="phone" class="col-sm-8" placeholder="Phone ###-###-####"
+              ng-model="signUpCtrl.user.phone"
+              pattern="(\d{3})-(\d{3})-(\d{4})">
+              <span ng-if="regForm.phone.$invalid && regForm.phone.$touched">
+                Phone must be in the format ###-###-####.
+              </span>
+              <br>
+          </div>
+          <div class="row">
+            <input type="text" name="favorite" class="col-sm-8" placeholder="Favorite Dish (Short Name)"
+              ng-model="signUpCtrl.user.favorite"
+              ng-minlength="2"
+              ng-maxlength="3">
+              <span ng-if="regForm.favorite.$invalid && regForm.favorite.$touched">
+                Must be Short Name for menu item such as A4
+              </span>
+            <br>
+            <br>
+          </div>
+          <div class="row">
+            <button
+              ng-disabled="regForm.$invalid"
+              ng-click="signUpCtrl.submit(signUpCtrl)">Register</button>
+          </div>
+          <div class="row">
+            <span class="formMessage"> {{signUpCtrl.registerMessage}}</span>
+          </div>
+        </form>
+      </fieldset>
+    </div>
+  </div>
+</div>
