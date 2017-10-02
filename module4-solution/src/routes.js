@@ -31,7 +31,7 @@ function RoutesConfig($stateProvider, $urlRouterProvider) {
     }
   })
 
-  //Item detail
+  //Items
   .state('items', {
     url: '/items/{categoryShortName}',
     templateUrl: 'src/data/templates/main-items.template.html',
